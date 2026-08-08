@@ -1,0 +1,135 @@
+<svg viewBox="0 0 1200 780" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a8f9c"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c47f10"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="780" fill="#14161c"/>
+
+  <text x="40" y="42" fill="#eef0f4" font-size="22" font-weight="700">Vyngo Voice Vehicle Search — Architecture</text>
+  <text x="40" y="64" fill="#7b8190" font-size="13">One process. Seven components. pipeline.js is shared verbatim by the live UI and the eval harness.</text>
+
+  <!-- Row 1: live turn pipeline -->
+  <!-- 1. Voice interface -->
+  <g>
+    <rect x="40" y="100" width="150" height="90" rx="8" fill="#1b1e26" stroke="#2b2f3a" stroke-width="1.5"/>
+    <text x="115" y="128" fill="#ffb020" font-size="11" text-anchor="middle" font-weight="600">① VOICE INTERFACE</text>
+    <text x="115" y="148" fill="#eef0f4" font-size="12.5" text-anchor="middle">index.html</text>
+    <text x="115" y="165" fill="#7b8190" font-size="10.5" text-anchor="middle">mic capture</text>
+    <text x="115" y="178" fill="#7b8190" font-size="10.5" text-anchor="middle">+ audio playback</text>
+  </g>
+
+  <!-- 2. STT -->
+  <g>
+    <rect x="230" y="100" width="150" height="90" rx="8" fill="#1b1e26" stroke="#2b2f3a" stroke-width="1.5"/>
+    <text x="305" y="128" fill="#ffb020" font-size="11" text-anchor="middle" font-weight="600">② STT</text>
+    <text x="305" y="148" fill="#eef0f4" font-size="12.5" text-anchor="middle">Web Speech API</text>
+    <text x="305" y="165" fill="#7b8190" font-size="10.5" text-anchor="middle">browser-native,</text>
+    <text x="305" y="178" fill="#7b8190" font-size="10.5" text-anchor="middle">vendor-hosted</text>
+  </g>
+
+  <!-- 3. Understanding -->
+  <g>
+    <rect x="420" y="100" width="170" height="90" rx="8" fill="#20232c" stroke="#ffb020" stroke-width="1.5"/>
+    <text x="505" y="128" fill="#ffb020" font-size="11" text-anchor="middle" font-weight="600">③ UNDERSTANDING</text>
+    <text x="505" y="148" fill="#eef0f4" font-size="12.5" text-anchor="middle">pipeline.js</text>
+    <text x="505" y="163" fill="#eef0f4" font-size="11" text-anchor="middle">extractSlots()</text>
+    <text x="505" y="178" fill="#7b8190" font-size="10.5" text-anchor="middle">rule/lexicon-based NLU</text>
+  </g>
+
+  <!-- 6. Conversation state (below understanding, feeds back) -->
+  <g>
+    <rect x="420" y="230" width="170" height="80" rx="8" fill="#20232c" stroke="#ffb020" stroke-width="1.5"/>
+    <text x="505" y="256" fill="#ffb020" font-size="11" text-anchor="middle" font-weight="600">⑥ CONVERSATION STATE</text>
+    <text x="505" y="276" fill="#eef0f4" font-size="12.5" text-anchor="middle">updateState()</text>
+    <text x="505" y="293" fill="#7b8190" font-size="10.5" text-anchor="middle">per-slot overwrite, not reset</text>
+  </g>
+
+  <!-- 4. Catalog + search -->
+  <g>
+    <rect x="640" y="100" width="180" height="90" rx="8" fill="#20232c" stroke="#ffb020" stroke-width="1.5"/>
+    <text x="730" y="128" fill="#ffb020" font-size="11" text-anchor="middle" font-weight="600">④ CATALOG + SEARCH</text>
+    <text x="730" y="148" fill="#eef0f4" font-size="12.5" text-anchor="middle">pipeline.js</text>
+    <text x="730" y="163" fill="#eef0f4" font-size="11" text-anchor="middle">filterCatalog() + rankResults()</text>
+    <text x="730" y="178" fill="#7b8190" font-size="10.5" text-anchor="middle">catalog.csv · 136 listings</text>
+  </g>
+
+  <!-- 5. Response layer -->
+  <g>
+    <rect x="870" y="100" width="180" height="90" rx="8" fill="#20232c" stroke="#34d399" stroke-width="1.5"/>
+    <text x="960" y="128" fill="#34d399" font-size="11" text-anchor="middle" font-weight="600">⑤ RESPONSE LAYER</text>
+    <text x="960" y="148" fill="#eef0f4" font-size="12.5" text-anchor="middle">composeAnswer()</text>
+    <text x="960" y="163" fill="#eef0f4" font-size="11" text-anchor="middle">template-only, no LLM</text>
+    <text x="960" y="178" fill="#7b8190" font-size="10.5" text-anchor="middle">anti-hallucination mechanism</text>
+  </g>
+
+  <!-- TTS out, back to voice interface -->
+  <g>
+    <rect x="870" y="230" width="180" height="80" rx="8" fill="#1b1e26" stroke="#2b2f3a" stroke-width="1.5"/>
+    <text x="960" y="256" fill="#ffb020" font-size="11" text-anchor="middle" font-weight="600">TTS OUT</text>
+    <text x="960" y="276" fill="#eef0f4" font-size="12.5" text-anchor="middle">speechSynthesis</text>
+    <text x="960" y="293" fill="#7b8190" font-size="10.5" text-anchor="middle">onstart = first-audio timestamp</text>
+  </g>
+
+  <!-- arrows: main flow -->
+  <path d="M190,145 L230,145" stroke="#8a8f9c" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M380,145 L420,145" stroke="#8a8f9c" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M590,145 L640,145" stroke="#ffb020" stroke-width="1.5" marker-end="url(#arrow-amber)"/>
+  <path d="M820,145 L870,145" stroke="#ffb020" stroke-width="1.5" marker-end="url(#arrow-amber)"/>
+  <path d="M960,190 L960,230" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M870,270 C700,270 350,270 190,190" stroke="#7b8190" stroke-width="1.3" stroke-dasharray="4,3" fill="none" marker-end="url(#arrow)"/>
+  <text x="720" y="330" fill="#7b8190" font-size="10" text-anchor="middle">audio played back to buyer</text>
+
+  <!-- state feedback loop -->
+  <path d="M505,190 L505,230" stroke="#ffb020" stroke-width="1.3" stroke-dasharray="3,3" marker-end="url(#arrow-amber)"/>
+  <path d="M420,270 C300,270 270,190 300,145" stroke="#ffb020" stroke-width="1.3" stroke-dasharray="3,3" fill="none" marker-end="url(#arrow-amber)"/>
+  <text x="150" y="352" fill="#7b8190" font-size="10">state persists turn-to-turn: corrections overwrite one slot,</text>
+  <text x="150" y="366" fill="#7b8190" font-size="10">"uska" follow-ups resolve against last-shown records</text>
+
+  <!-- Row 2: Eval harness, parallel consumer -->
+  <g>
+    <rect x="40" y="420" width="1010" height="140" rx="8" fill="#161920" stroke="#2b2f3a" stroke-width="1.5" stroke-dasharray="5,4"/>
+    <text x="60" y="448" fill="#34d399" font-size="12" font-weight="600">⑦ EVAL HARNESS + LATENCY LOG — eval/run_eval.js (Node)</text>
+    <text x="60" y="470" fill="#eef0f4" font-size="12">
+      Imports the SAME pipeline.js the browser calls — require("../pipeline.js") — not a mock or reimplementation.
+    </text>
+    <text x="60" y="490" fill="#7b8190" font-size="11.5">
+      16 test utterances (eval/eval_utterances.json) → extractSlots() → filterCatalog() → rankResults() → composeAnswer()
+    </text>
+    <text x="60" y="510" fill="#7b8190" font-size="11.5">
+      Checks: (a) extracted slots match expected, (b) zero constraint violations across ALL filtered results,
+    </text>
+    <text x="60" y="528" fill="#7b8190" font-size="11.5">
+      (c) follow-ups return grounded answers, not the empty-context fallback. Prints pass rate + per-stage latency (ms).
+    </text>
+    <rect x="850" y="460" width="160" height="70" rx="6" fill="#20232c" stroke="#34d399" stroke-width="1.3"/>
+    <text x="930" y="485" fill="#34d399" font-size="13" font-weight="700" text-anchor="middle">16 / 16 PASS</text>
+    <text x="930" y="503" fill="#7b8190" font-size="10.5" text-anchor="middle">0 constraint violations</text>
+    <text x="930" y="518" fill="#7b8190" font-size="10.5" text-anchor="middle">eval/results.txt</text>
+  </g>
+
+  <path d="M505,560 L505,420" stroke="#34d399" stroke-width="1" stroke-dasharray="2,3" fill="none"/>
+  <text x="520" y="590" fill="#7b8190" font-size="10">same pipeline.js module, imported by both</text>
+
+  <!-- Legend -->
+  <g transform="translate(40,615)">
+    <text x="0" y="0" fill="#eef0f4" font-size="12" font-weight="600">Legend</text>
+    <rect x="0" y="14" width="14" height="14" fill="#20232c" stroke="#ffb020"/>
+    <text x="20" y="25" fill="#7b8190" font-size="11">Core pipeline.js function (shared by UI + eval)</text>
+    <rect x="0" y="36" width="14" height="14" fill="#1b1e26" stroke="#2b2f3a"/>
+    <text x="20" y="47" fill="#7b8190" font-size="11">Browser-only I/O boundary (STT/TTS/mic)</text>
+    <rect x="0" y="58" width="14" height="14" fill="#20232c" stroke="#34d399"/>
+    <text x="20" y="69" fill="#7b8190" font-size="11">Anti-hallucination boundary — response is template-built from catalog fields only</text>
+  </g>
+
+  <text x="40" y="740" fill="#7b8190" font-size="11">
+    What each box hides / what would replace it — see README "Tradeoffs" and "Q&amp;A prep" sections.
+  </text>
+  <text x="40" y="758" fill="#7b8190" font-size="11">
+    First component to replace in production: ② STT (single function-boundary swap, see README scale answer).
+  </text>
+</svg>

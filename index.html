@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vyngo Dispatch — Voice Vehicle Search</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ============ Design tokens — "highway dispatch console" ============
+     Subject: a buyer calling a freight dispatcher to find a used commercial
+     vehicle. Sodium-vapor highway-lamp amber, asphalt neutrals, lane-marking
+     dividers, tabular mono digits for every freight number (price/km/GVW),
+     signal-green / stop-red for go/no-go states (verified papers, corrections).
+  ========================================================================= */
+  :root {
+    --asphalt: #14161c;
+    --asphalt-2: #1b1e26;
+    --asphalt-3: #20232c;
+    --lane: #2b2f3a;
+    --lane-bright: #3a3f4d;
+    --sodium: #ffb020;
+    --sodium-dim: #a87418;
+    --signal: #34d399;
+    --alert: #ff5468;
+    --paper: #eef0f4;
+    --muted: #7b8190;
+    --font-display: "Oswald", "Arial Narrow", sans-serif;
+    --font-body: "IBM Plex Sans", -apple-system, sans-serif;
+    --font-mono: "IBM Plex Mono", "SF Mono", monospace;
+  }
+  * { box-sizing: border-box; }
+  ::selection { background: var(--sodium); color: var(--asphalt); }
+  body {
+    margin: 0; font-family: var(--font-body);
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(255,176,32,0.06), transparent),
+      var(--asphalt);
+    color: var(--paper); display: flex; min-height: 100vh;
+  }
+  :focus-visible { outline: 2px solid var(--sodium); outline-offset: 2px; }
+
+  #left { flex: 1.15; padding: 32px 36px; display: flex; flex-direction: column; border-right: 1px solid var(--lane); min-width: 0; }
+  #right { flex: 0.85; padding: 32px 28px; overflow-y: auto; }
+
+  /* ---- Header: route-sign strip ---- */
+  .route-strip {
+    display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px;
+  }
+  .route-code {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;
+    color: var(--sodium); border: 1px solid var(--sodium-dim); border-radius: 3px;
+    padding: 2px 7px; text-transform: uppercase;
+  }
+  h1 {
+    font-family: var(--font-display); font-weight: 600; font-size: 26px;
+    letter-spacing: 0.01em; margin: 6px 0 4px; text-transform: uppercase;
+  }
+  .sub { color: var(--muted); font-size: 13.5px; margin-bottom: 28px; line-height: 1.5; max-width: 46ch; }
+  .sub em { color: var(--paper); font-style: normal; border-bottom: 1px dashed var(--sodium-dim); }
+
+  /* ---- Push-to-talk console ---- */
+  .ptt-console {
+    display: flex; align-items: center; gap: 22px; padding: 20px 6px 26px;
+    border-bottom: 1px dashed var(--lane-bright); margin-bottom: 22px;
+  }
+  #mic-btn {
+    position: relative; width: 84px; height: 84px; flex-shrink: 0; border-radius: 50%;
+    border: 2px solid var(--sodium-dim); cursor: pointer;
+    background: radial-gradient(circle at 35% 30%, #2a2118, var(--asphalt-3));
+    color: var(--sodium); font-size: 26px; display: flex; align-items: center; justify-content: center;
+    transition: border-color .2s, color .2s, transform .1s;
+  }
+  #mic-btn:hover { border-color: var(--sodium); transform: scale(1.03); }
+  #mic-btn:active { transform: scale(0.97); }
+  #mic-btn::before {
+    content: ""; position: absolute; inset: -9px; border-radius: 50%;
+    border: 2px dashed transparent; transition: border-color .2s;
+  }
+  #mic-btn.listening {
+    color: var(--alert); border-color: var(--alert);
+    background: radial-gradient(circle at 35% 30%, #2a1416, var(--asphalt-3));
+  }
+  #mic-btn.listening::before {
+    border-color: var(--alert);
+    animation: route-spin 2.2s linear infinite;
+  }
+  @keyframes route-spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) {
+    #mic-btn.listening::before { animation: none; border-color: var(--alert); }
+  }
+  .ptt-meta { min-width: 0; }
+  .ptt-label { font-family: var(--font-display); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+  #status { font-size: 14px; color: var(--paper); min-height: 20px; }
+  #status.listening-text { color: var(--alert); }
+
+  #manual-input { display: flex; gap: 8px; margin-top: 14px; }
+  #manual-input input {
+    flex: 1; background: var(--asphalt-2); border: 1px solid var(--lane); color: var(--paper);
+    padding: 10px 12px; border-radius: 5px; font-family: var(--font-body); font-size: 13.5px;
+  }
+  #manual-input input:focus { border-color: var(--sodium-dim); }
+  #manual-input input::placeholder { color: var(--muted); }
+  #manual-input button {
+    background: var(--sodium); color: var(--asphalt); border: none; padding: 10px 16px;
+    border-radius: 5px; cursor: pointer; font-family: var(--font-display); font-weight: 600;
+    font-size: 12.5px; letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  #manual-input button:hover { background: #ffc04d; }
+
+  .hint { color: var(--muted); font-size: 12px; margin-top: 12px; font-family: var(--font-mono); }
+  .hint .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--signal); margin-right: 6px; }
+
+  /* ---- Transcript / call log ---- */
+  #transcript { margin-top: 22px; display: flex; flex-direction: column; }
+  .turn {
+    position: relative; padding: 16px 0 16px 20px; margin-bottom: 4px;
+    border-left: 2px dashed var(--lane-bright);
+  }
+  .turn:last-child { border-left-color: transparent; }
+  .turn::before {
+    content: ""; position: absolute; left: -5px; top: 20px; width: 8px; height: 8px;
+    border-radius: 50%; background: var(--sodium);
+  }
+  .role-tag {
+    font-family: var(--font-display); font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;
+  }
+  .turn .you .role-tag { color: var(--sodium); }
+  .turn .them .role-tag { color: var(--signal); }
+  .turn .text { font-size: 14.5px; line-height: 1.55; color: var(--paper); }
+  .turn .you { margin-bottom: 12px; }
+  .turn .you .text { color: #cfd3dc; font-style: italic; }
+
+  .card {
+    background: var(--asphalt-2); border: 1px solid var(--lane); border-left: 3px solid var(--sodium-dim);
+    border-radius: 6px; padding: 11px 13px; margin-top: 9px; font-size: 13px;
+    display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .card .veh-name { color: var(--paper); font-weight: 600; }
+  .card .veh-specs { font-family: var(--font-mono); color: var(--muted); font-size: 12px; }
+  .card .veh-specs b { color: var(--paper); font-weight: 500; }
+  .chip {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.03em; padding: 2px 7px;
+    border-radius: 3px; text-transform: uppercase; white-space: nowrap;
+  }
+  .chip.ok { background: rgba(52,211,153,0.12); color: var(--signal); border: 1px solid rgba(52,211,153,0.3); }
+  .chip.warn { background: rgba(255,84,104,0.1); color: var(--alert); border: 1px solid rgba(255,84,104,0.28); }
+
+  /* ---- Right rail: manifest panels ---- */
+  h2 {
+    font-family: var(--font-display); font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--muted); margin: 0 0 14px; padding-bottom: 10px; border-bottom: 1px solid var(--lane);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  #slots-panel, #latency-panel {
+    background: var(--asphalt-2); border: 1px solid var(--lane); border-radius: 8px;
+    padding: 18px 18px 14px; margin-bottom: 20px;
+  }
+  .slot-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; padding: 6px 0; border-bottom: 1px dotted var(--lane); }
+  .slot-row:last-child { border-bottom: none; }
+  .slot-row .k { color: var(--muted); font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.03em; }
+  .slot-row .v { font-family: var(--font-mono); color: var(--sodium); font-weight: 500; }
+
+  .lat-row { padding: 7px 0; }
+  .lat-row .lat-top { display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); margin-bottom: 4px; }
+  .lat-row .stage { color: var(--muted); }
+  .lat-row .val { color: var(--paper); }
+  .lat-bar-track { height: 4px; background: var(--asphalt-3); border-radius: 2px; overflow: hidden; }
+  .lat-bar-fill { height: 100%; background: var(--sodium); border-radius: 2px; }
+
+  #reset-btn {
+    background: none; border: 1px solid var(--lane-bright); color: var(--muted); border-radius: 4px;
+    padding: 4px 9px; font-size: 10.5px; font-family: var(--font-mono); cursor: pointer;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  #reset-btn:hover { color: var(--alert); border-color: var(--alert); }
+
+  /* ---- Scrollbars, small screens ---- */
+  #right::-webkit-scrollbar { width: 8px; }
+  #right::-webkit-scrollbar-thumb { background: var(--lane-bright); border-radius: 4px; }
+
+  @media (max-width: 860px) {
+    body { flex-direction: column; }
+    #left { border-right: none; border-bottom: 1px solid var(--lane); padding: 24px 20px; }
+    #right { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="left">
+  <div class="route-strip"><span class="route-code">NH‑VOICE · 01</span></div>
+  <h1>Vyngo Dispatch</h1>
+  <div class="sub">Push to talk, or type below. Try: <em>"chhota truck chahiye, 5 lakh ke andar, Mumbai"</em></div>
+
+  <div class="ptt-console">
+    <button id="mic-btn" aria-label="Push to talk">🎤</button>
+    <div class="ptt-meta">
+      <div class="ptt-label">Push to talk</div>
+      <div id="status">Click the mic and speak</div>
+    </div>
+  </div>
+
+  <div id="manual-input">
+    <input id="manual-text" placeholder="…or type your query here (for demo/testing without mic)" />
+    <button id="manual-send">Send</button>
+  </div>
+  <div class="hint"><span class="dot"></span>Loading catalog… <span id="catalog-count"></span></div>
+
+  <div id="transcript"></div>
+</div>
+
+<div id="right">
+  <div id="slots-panel">
+    <h2>Conversation State <button id="reset-btn">Reset</button></h2>
+    <div id="slots-body"><div class="slot-row"><span class="k">— no slots yet —</span></div></div>
+  </div>
+  <div id="latency-panel">
+    <h2>Latency Log</h2>
+    <div id="latency-body"><div class="lat-row"><span class="stage">— no turns yet —</span></div></div>
+  </div>
+</div>
+
+<script src="pipeline.js"></script>
+<script>
+const P = window.VyngoPipeline;
+let catalog = [];
+let conversationState = {};
+let lastRankedRecords = [];
+
+fetch("catalog.csv").then(r => {
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  return r.text();
+}).then(text => {
+  catalog = P.parseCatalogCSV(text);
+  document.getElementById("catalog-count").textContent = `${catalog.length} listings loaded.`;
+}).catch(err => {
+  document.querySelector(".hint .dot").style.background = "var(--alert)";
+  document.getElementById("catalog-count").innerHTML =
+    `<span style="color:var(--alert)">Failed to load catalog.csv (${err.message}). ` +
+    `Are you opening this via <code>python3 server.py</code> → http://localhost:8000, ` +
+    `and not by double-clicking index.html? file:// blocks fetch().</span>`;
+});
+
+function renderSlots() {
+  const body = document.getElementById("slots-body");
+  const keys = Object.keys(conversationState);
+  if (keys.length === 0) {
+    body.innerHTML = `<div class="slot-row"><span class="k">— no slots yet —</span></div>`;
+    return;
+  }
+  body.innerHTML = keys.map(k =>
+    `<div class="slot-row"><span class="k">${k}</span><span class="v">${conversationState[k]}</span></div>`
+  ).join("");
+}
+
+function renderLatency(stages) {
+  const body = document.getElementById("latency-body");
+  const values = Object.values(stages);
+  const total = Math.max(...values, 1);
+  body.innerHTML = Object.entries(stages).map(([k, v]) => {
+    const pct = Math.min(100, (v / total) * 100);
+    return `<div class="lat-row">
+      <div class="lat-top"><span class="stage">${k.replace(/_/g, " ")}</span><span class="val">${v.toFixed(1)} ms</span></div>
+      <div class="lat-bar-track"><div class="lat-bar-fill" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join("");
+}
+
+function addTurn(userText, botText, records) {
+  const el = document.createElement("div");
+  el.className = "turn";
+  const cardHtml = (records && records.length) ? records.map(r => `
+    <div class="card">
+      <div>
+        <span class="veh-name">${r.make} ${r.model}</span>
+        <span class="veh-specs"> · ${r.year} · ₹${r.price.toLocaleString("en-IN")} · ${r.km_driven.toLocaleString("en-IN")} km · ${r.fuel} · ${r.city}</span>
+      </div>
+      <span class="chip ${r.papers_verified ? "ok" : "warn"}">${r.papers_verified ? "Verified" : "Unverified"}</span>
+    </div>`).join("") : "";
+  el.innerHTML = `
+    <div class="you"><div class="role-tag">◆ You</div><div class="text">${userText}</div></div>
+    <div class="them"><div class="role-tag">◆ Dispatch</div><div class="text">${botText}</div></div>
+    ${cardHtml}
+  `;
+  document.getElementById("transcript").prepend(el);
+}
+
+function speak(text, onFirstAudio) {
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.rate = 1.02;
+  // The PDF's latency metric is explicitly "speech end -> first audio back".
+  // speechSynthesis.speak() returns immediately (it queues), it does NOT mean
+  // audio has started — the browser's TTS engine still has its own startup
+  // delay. utterance.onstart fires when audio actually begins, which is the
+  // correct event to time against.
+  if (onFirstAudio) utter.onstart = () => onFirstAudio(performance.now());
+  window.speechSynthesis.speak(utter);
+}
+
+// --- Core turn handler: this is the SAME pipeline the eval harness calls ---
+function handleUtterance(text, speechEndTime) {
+  const stages = {};
+  let t = performance.now();
+
+  const extraction = P.extractSlots(text);
+  stages["understanding"] = performance.now() - t; t = performance.now();
+
+  let botText, records;
+
+  if (extraction.isFollowUp) {
+    botText = P.answerFollowUp(text, lastRankedRecords);
+    records = [];
+    stages["search"] = 0;
+  } else {
+    conversationState = P.updateState(conversationState, extraction);
+    stages["state_update"] = performance.now() - t; t = performance.now();
+
+    if (extraction.outOfDomainRequest) {
+      const response = P.composeAnswer([], conversationState, catalog, extraction.outOfDomainRequest);
+      botText = response.text;
+      records = [];
+      stages["search"] = 0;
+      stages["response_compose"] = performance.now() - t; t = performance.now();
+    } else {
+      const filtered = P.filterCatalog(catalog, conversationState);
+      const ranked = P.rankResults(filtered, conversationState);
+      lastRankedRecords = ranked.slice(0, 3).map(r => r.record);
+      stages["search"] = performance.now() - t; t = performance.now();
+
+      const response = P.composeAnswer(ranked, conversationState, catalog, null);
+      botText = response.text;
+      records = response.topRecords;
+      stages["response_compose"] = performance.now() - t; t = performance.now();
+    }
+  }
+
+  renderSlots();
+  addTurn(text, botText, records);
+
+  const pipelineDoneTime = performance.now();
+  stages["pipeline_compute"] = pipelineDoneTime - speechEndTime; // understanding+search+response only
+  renderLatency(stages);
+
+  // Real "speech end -> first audio back" — updates the panel again once the
+  // TTS engine actually starts producing audio (onstart), not when we merely
+  // called .speak(). This is the number the PDF's rubric is asking for.
+  speak(botText, (firstAudioTime) => {
+    stages["speech_end_to_first_audio (REPORTED METRIC)"] = firstAudioTime - speechEndTime;
+    renderLatency(stages);
+  });
+}
+
+document.getElementById("manual-send").onclick = () => {
+  const input = document.getElementById("manual-text");
+  if (!input.value.trim()) return;
+  const speechEndTime = performance.now();
+  handleUtterance(input.value.trim(), speechEndTime);
+  input.value = "";
+};
+document.getElementById("manual-text").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") document.getElementById("manual-send").click();
+});
+document.getElementById("reset-btn").onclick = () => {
+  conversationState = {}; lastRankedRecords = [];
+  renderSlots();
+  document.getElementById("transcript").innerHTML = "";
+};
+
+// --- STT: Web Speech API (Chrome). Falls back to manual text input elsewhere. ---
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const micBtn = document.getElementById("mic-btn");
+const statusEl = document.getElementById("status");
+
+if (!SpeechRecognition) {
+  statusEl.textContent = "Web Speech API not supported in this browser — use the text box below (Chrome recommended).";
+} else {
+  const recognition = new SpeechRecognition();
+  recognition.lang = "en-IN"; // handles Hinglish reasonably; see README tradeoff
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+  let listening = false;
+
+  micBtn.onclick = () => {
+    if (listening) { recognition.stop(); return; }
+    recognition.start();
+  };
+  recognition.onstart = () => { listening = true; micBtn.classList.add("listening"); statusEl.classList.add("listening-text"); statusEl.textContent = "Listening…"; };
+  recognition.onend = () => { listening = false; micBtn.classList.remove("listening"); statusEl.classList.remove("listening-text"); statusEl.textContent = "Click the mic and speak"; };
+  recognition.onerror = (e) => { statusEl.classList.remove("listening-text"); statusEl.textContent = `Mic error: ${e.error}. Try the text box instead.`; };
+  recognition.onresult = (e) => {
+    const speechEndTime = performance.now(); // per assignment: latency measured from speech-end
+    const text = e.results[0][0].transcript;
+    statusEl.classList.remove("listening-text");
+    statusEl.textContent = `Heard: "${text}"`;
+    handleUtterance(text, speechEndTime);
+  };
+}
+</script>
+</body>
+</html>

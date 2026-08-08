@@ -1,0 +1,137 @@
+id,make,model,year,price,km_driven,fuel,payload_kg,gvw_kg,body_type,city,papers_verified
+V0001,Tata,407,2015,120000,80097,diesel,2519,5106,truck,Gurgaon,no
+V0002,Tata,Intra V30,2024,120000,118604,diesel,1478,3046,pickup,Mumbai,no
+V0003,Mahindra,Bolero Pickup,2023,120000,117974,diesel,1629,3177,pickup,Kolkata,yes
+V0004,Eicher,Pro 2049,2020,127000,80842,diesel,4666,8823,truck,Delhi,yes
+V0005,Ashok Leyland,Partner,2020,120000,166263,cng,1591,3583,pickup,Pune,yes
+V0006,Tata,Intra V30,2023,120000,84854,cng,1508,3237,pickup,Delhi,yes
+V0007,Tata,Intra V30,2018,120000,34476,cng,1411,3130,pickup,Noida,yes
+V0008,Mahindra,Supro,2016,120000,167680,petrol,847,1666,mini_truck,Nagpur,yes
+V0009,Maruti Suzuki,Super Carry,2018,120000,187467,cng,758,1473,mini_truck,Pune,yes
+V0010,Tata,Intra V30,2018,120000,156682,cng,1552,3204,pickup,Delhi,yes
+V0011,Tata,709,2019,184000,44603,diesel,4481,8685,truck,Indore,yes
+V0012,Ashok Leyland,Ecomet 1015,2020,267000,65493,diesel,6668,11025,truck,Lucknow,yes
+V0013,Tata,1109,2021,120000,164345,diesel,6921,11304,truck,Chennai,yes
+V0014,Tata,Ace,2016,120000,186706,petrol,700,1477,mini_truck,Noida,yes
+V0015,Eicher,Pro 3015,2015,120000,77045,diesel,9108,15016,truck,Lucknow,yes
+V0016,Bharat Benz,1214R,2018,139000,48065,diesel,8315,11974,truck,Nagpur,yes
+V0017,Force,Trump 40,2015,120000,37325,cng,1034,2051,mini_truck,Ahmedabad,yes
+V0018,Tata,Intra V30,2022,264000,26143,diesel,1412,3175,pickup,Nashik,yes
+V0019,Bharat Benz,1214R,2021,371000,63521,diesel,8035,11820,truck,Ahmedabad,yes
+V0020,Piaggio,Porter 700,2022,123000,39720,diesel,697,1355,mini_truck,Gurgaon,no
+V0021,Mahindra,Jeeto,2015,120000,26610,petrol,722,1337,mini_truck,Pune,yes
+V0022,Mahindra,Jeeto,2019,120000,183368,cng,729,1393,mini_truck,Delhi,yes
+V0023,Force,Trump 40,2018,120000,131987,cng,976,1967,mini_truck,Delhi,no
+V0024,Eicher,Pro 3015,2015,120000,184518,diesel,9728,14381,truck,Pune,yes
+V0025,Mahindra,Bolero Pickup,2018,120000,148584,cng,1568,3365,pickup,Nashik,yes
+V0026,Tata,Intra V30,2022,120000,152264,diesel,1543,3288,pickup,Pune,yes
+V0027,Mahindra,Jeeto,2017,120000,114539,cng,726,1348,mini_truck,Jaipur,no
+V0028,Tata,Ace,2021,120000,77521,cng,787,1491,mini_truck,Ahmedabad,yes
+V0029,Force,Trump 40,2017,120000,57780,cng,1015,1909,mini_truck,Delhi,yes
+V0030,Ashok Leyland,Dost+,2015,120000,21144,petrol,1175,2567,mini_truck,Jaipur,yes
+V0031,Tata,Intra V30,2017,120000,25962,diesel,1428,3192,pickup,Gurgaon,yes
+V0032,Bharat Benz,1214R,2016,120000,117897,diesel,7686,11654,truck,Noida,no
+V0033,Tata,709,2019,120000,127858,diesel,4724,8752,truck,Navi Mumbai,no
+V0034,Tata,Intra V30,2023,159000,63877,cng,1551,3134,pickup,Nashik,yes
+V0035,Tata,1109,2022,141000,150401,diesel,6712,11033,truck,Lucknow,no
+V0036,Tata,709,2019,174000,38258,diesel,4493,8562,truck,Indore,no
+V0037,Mahindra,Bolero Pickup,2019,120000,140489,cng,1491,3246,pickup,Noida,yes
+V0038,Mahindra,Supro,2015,120000,8929,cng,846,1675,mini_truck,Nashik,yes
+V0039,Eicher,Pro 2049,2023,603000,10534,diesel,5187,8942,truck,Navi Mumbai,yes
+V0040,Ashok Leyland,Partner,2024,120000,152841,diesel,1644,3586,pickup,Hyderabad,no
+V0041,Tata,Ace Gold,2020,120000,63070,petrol,868,1633,mini_truck,Gurgaon,yes
+V0042,Eicher,Pro 2049,2024,524000,48515,diesel,5172,8567,truck,Nagpur,yes
+V0043,Ashok Leyland,Dost+,2021,120000,183612,petrol,1167,2549,mini_truck,Gurgaon,yes
+V0044,Force,Trump 40,2018,120000,60316,cng,948,2005,mini_truck,Bangalore,yes
+V0045,Ashok Leyland,Ecomet 1015,2020,201000,81034,diesel,6998,11827,truck,Noida,yes
+V0046,Maruti Suzuki,Super Carry,2020,143000,15235,diesel,684,1496,mini_truck,Noida,no
+V0047,Ashok Leyland,Partner,2020,120000,122398,diesel,1620,3523,pickup,Chennai,yes
+V0048,Tata,Ace,2023,120000,149151,petrol,782,1535,mini_truck,Delhi,yes
+V0049,Bharat Benz,1214R,2020,120000,181903,diesel,7784,11786,truck,Ahmedabad,yes
+V0050,Mahindra,Furio 7,2023,424000,41367,diesel,4233,7666,truck,Hyderabad,yes
+V0051,Bharat Benz,1214R,2024,545000,86892,diesel,7658,11812,truck,Indore,yes
+V0052,Tata,LPT 1613,2024,453000,179627,diesel,9003,15805,truck,Kolkata,yes
+V0053,Tata,1109,2016,120000,82392,diesel,6653,10723,truck,Navi Mumbai,yes
+V0054,Mahindra,Bolero Pickup,2017,120000,14402,diesel,1648,3154,pickup,Gurgaon,yes
+V0055,Eicher,Pro 2049,2024,489000,58970,diesel,5026,8553,truck,Jaipur,yes
+V0056,Tata,407,2021,146000,65367,diesel,2380,5089,truck,Lucknow,yes
+V0057,Eicher,Pro 3015,2017,120000,129803,diesel,9841,14762,truck,Kolkata,yes
+V0058,Maruti Suzuki,Super Carry,2022,142000,49722,petrol,704,1501,mini_truck,Jaipur,yes
+V0059,Piaggio,Porter 700,2022,120000,172298,diesel,670,1360,mini_truck,Noida,yes
+V0060,Ashok Leyland,Dost+,2023,283000,29122,diesel,1174,2417,mini_truck,Nashik,yes
+V0061,Eicher,Pro 2049,2021,164000,94738,diesel,4853,9104,truck,Hyderabad,no
+V0062,Tata,Ace,2024,120000,107714,cng,763,1527,mini_truck,Mumbai,yes
+V0063,Eicher,Pro 2049,2023,137000,151165,diesel,4915,8829,truck,Jaipur,no
+V0064,Ashok Leyland,Ecomet 1015,2017,120000,130523,diesel,7178,11534,truck,Indore,no
+V0065,Tata,Intra V30,2021,150000,43572,cng,1443,3156,pickup,Nagpur,no
+V0066,Ashok Leyland,Dost+,2021,120000,80943,cng,1153,2482,mini_truck,Noida,yes
+V0067,Ashok Leyland,Partner,2018,120000,178431,diesel,1608,3330,pickup,Pune,yes
+V0068,Tata,709,2018,120000,41088,diesel,4412,8249,truck,Thane,yes
+V0069,Ashok Leyland,Partner,2017,120000,166831,diesel,1691,3585,pickup,Nagpur,yes
+V0070,Tata,LPT 1613,2021,334000,111980,diesel,9039,16092,truck,Navi Mumbai,yes
+V0071,Mahindra,Furio 7,2024,516000,39733,diesel,4066,7428,truck,Bangalore,yes
+V0072,Ashok Leyland,Dost+,2015,120000,118115,cng,1253,2540,mini_truck,Thane,yes
+V0073,Tata,709,2021,282000,54173,diesel,4394,8572,truck,Indore,yes
+V0074,Mahindra,Supro,2020,120000,72355,diesel,915,1692,mini_truck,Noida,yes
+V0075,Ashok Leyland,Ecomet 1015,2020,391000,15523,diesel,6956,11162,truck,Surat,no
+V0076,Mahindra,Supro,2024,120000,80422,petrol,838,1712,mini_truck,Mumbai,yes
+V0077,Force,Trump 40,2023,120000,70999,petrol,978,1902,mini_truck,Jaipur,yes
+V0078,Mahindra,Furio 7,2018,120000,114011,diesel,4122,7443,truck,Ahmedabad,yes
+V0079,Eicher,Pro 2049,2023,305000,94714,diesel,4749,9069,truck,Kolkata,yes
+V0080,Ashok Leyland,Dost+,2016,120000,148473,petrol,1228,2519,mini_truck,Nagpur,no
+V0081,Piaggio,Porter 700,2024,120000,82186,diesel,660,1331,mini_truck,Delhi,yes
+V0082,Maruti Suzuki,Super Carry,2017,120000,79909,diesel,771,1501,mini_truck,Pune,yes
+V0083,Force,Trump 40,2016,120000,11215,petrol,964,2054,mini_truck,Ahmedabad,yes
+V0084,Mahindra,Supro,2022,175000,37907,diesel,901,1622,mini_truck,Chennai,yes
+V0085,Tata,709,2024,392000,87648,diesel,4494,8612,truck,Gurgaon,no
+V0086,Mahindra,Jeeto,2023,120000,107713,cng,734,1364,mini_truck,Kolkata,yes
+V0087,Bharat Benz,1214R,2015,120000,167811,diesel,8046,11550,truck,Delhi,yes
+V0088,Tata,1109,2023,629000,27677,diesel,6980,10706,truck,Mumbai,yes
+V0089,Mahindra,Jeeto,2019,120000,82112,petrol,728,1418,mini_truck,Kolkata,no
+V0090,Tata,LPT 1613,2018,120000,119447,diesel,9861,16258,truck,Indore,yes
+V0091,Tata,Intra V30,2015,120000,51495,cng,1514,3219,pickup,Ahmedabad,yes
+V0092,Mahindra,Supro,2023,120000,149552,cng,932,1714,mini_truck,Kolkata,no
+V0093,Bharat Benz,1214R,2019,339000,14780,diesel,7970,11419,truck,Gurgaon,yes
+V0094,Mahindra,Supro,2024,308000,18546,diesel,935,1639,mini_truck,Jaipur,yes
+V0095,Tata,LPT 1613,2021,120000,174405,diesel,9151,16057,truck,Navi Mumbai,yes
+V0096,Tata,1109,2020,120000,115910,diesel,7180,10934,truck,Ahmedabad,yes
+V0097,Eicher,Pro 3015,2016,120000,90448,diesel,9808,15239,truck,Surat,no
+V0098,Tata,Ace,2023,120000,129104,cng,750,1484,mini_truck,Pune,no
+V0099,Eicher,Pro 3015,2015,120000,61361,diesel,9281,15087,truck,Indore,no
+V0100,Tata,407,2015,120000,173156,diesel,2479,4787,truck,Nagpur,yes
+V0101,Tata,407,2022,270000,38793,diesel,2465,4859,truck,Jaipur,yes
+V0102,Force,Trump 40,2022,120000,71892,cng,1039,1981,mini_truck,Indore,no
+V0103,Tata,709,2016,120000,80416,diesel,4296,8076,truck,Surat,yes
+V0104,Mahindra,Furio 7,2024,120000,160023,diesel,4052,7456,truck,Nashik,yes
+V0105,Maruti Suzuki,Super Carry,2021,120000,127365,cng,735,1453,mini_truck,Delhi,yes
+V0106,Eicher,Pro 2049,2015,120000,91408,diesel,5115,9019,truck,Chennai,yes
+V0107,Tata,709,2022,463000,17704,diesel,4648,8669,truck,Lucknow,yes
+V0108,Eicher,Pro 3015,2016,120000,145874,diesel,9815,15413,truck,Mumbai,yes
+V0109,Tata,Intra V30,2022,120000,77474,cng,1546,3259,pickup,Chennai,yes
+V0110,Ashok Leyland,Ecomet 1015,2020,120000,172311,diesel,6843,11554,truck,Indore,no
+V0111,Mahindra,Furio 7,2018,133000,31692,diesel,4340,7391,truck,Thane,yes
+V0112,Mahindra,Furio 7,2015,120000,20056,diesel,4099,7271,truck,Pune,yes
+V0113,Eicher,Pro 2049,2024,120000,186729,diesel,5166,8996,truck,Nagpur,no
+V0114,Mahindra,Jeeto,2022,120000,160871,diesel,685,1404,mini_truck,Gurgaon,yes
+V0115,Eicher,Pro 3015,2019,120000,185631,diesel,9959,14608,truck,Navi Mumbai,yes
+V0116,Eicher,Pro 2049,2019,120000,127756,diesel,4669,8824,truck,Delhi,yes
+V0117,Ashok Leyland,Partner,2024,189000,85561,cng,1651,3327,pickup,Mumbai,yes
+V0118,Tata,Ace Gold,2024,120000,138214,cng,806,1544,mini_truck,Gurgaon,yes
+V0119,Mahindra,Supro,2017,120000,172691,diesel,831,1664,mini_truck,Pune,yes
+V0120,Tata,709,2016,120000,85361,diesel,4600,8670,truck,Hyderabad,no
+V0121,Ashok Leyland,Partner,2023,120000,139542,cng,1777,3407,pickup,Nagpur,yes
+V0122,Ashok Leyland,Dost+,2016,120000,130770,diesel,1289,2519,mini_truck,Nashik,yes
+V0123,Ashok Leyland,Ecomet 1015,2023,395000,103885,diesel,6739,11264,truck,Chennai,no
+V0124,Mahindra,Supro,2024,120000,107883,petrol,883,1699,mini_truck,Bangalore,no
+V0125,Maruti Suzuki,Super Carry,2020,120000,167929,diesel,768,1461,mini_truck,Navi Mumbai,yes
+V0126,Eicher,Pro 2049,2016,120000,44641,diesel,4675,8719,truck,Pune,yes
+V0127,Maruti Suzuki,Super Carry,2017,120000,109881,cng,747,1489,mini_truck,Bangalore,yes
+V0128,Tata,LPT 1613,2017,120000,116759,diesel,8780,15674,truck,Jaipur,yes
+V0129,Eicher,Pro 3015,2022,527000,69895,diesel,9412,15423,truck,Thane,yes
+V0130,Ashok Leyland,Partner,2015,120000,112369,cng,1584,3384,pickup,Delhi,yes
+V0131,Tata,Ace,2019,407427,66563,cng,735,1470,mini_truck,Mumbai,yes
+V0132,Mahindra,Supro,2020,468000,66575,cng,882,1666,mini_truck,Mumbai,yes
+V0133,Mahindra,Supro,2019,465282,69382,cng,882,1666,mini_truck,Mumbai,yes
+V0134,Mahindra,Supro,2023,381079,29152,cng,882,1666,mini_truck,Mumbai,yes
+V0135,Force,Trump 40,2020,476233,66684,cng,980,1960,mini_truck,Mumbai,yes
+V0136,Tata,Ace,2021,354076,24482,cng,735,1470,mini_truck,Mumbai,yes

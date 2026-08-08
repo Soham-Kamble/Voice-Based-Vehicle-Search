@@ -1,0 +1,52 @@
+==============================================================================
+VYNGO VOICE SEARCH — EVAL RESULTS
+==============================================================================
+[PASS] T01  "chhota truck chahiye, 5 lakh ke andar, city delivery ke liye"
+       matched=52 state={"budget_max":500000,"body_type":"mini_truck","purpose":"city_delivery"}
+       latency(ms): understanding=0.883 search=20.776 response=0.183 total=21.891
+[PASS] T02  "I need a pickup truck under 6 lakh in Pune"
+       matched=3 state={"budget_max":600000,"body_type":"pickup","purpose":"city_delivery","city":"Pune"}
+       latency(ms): understanding=0.267 search=0.071 response=0.020 total=0.369
+[PASS] T03  "Show me diesel trucks in Delhi under 8 lakh"
+       matched=3 state={"budget_max":800000,"body_type":"truck","purpose":"city_delivery","city":"Delhi","fuel":"diesel"}
+       latency(ms): understanding=0.104 search=0.051 response=0.073 total=0.242
+[PASS] T04  "CNG mini truck in Mumbai for last mile delivery"
+       matched=7 state={"budget_max":800000,"body_type":"mini_truck","purpose":"last_mile","city":"Mumbai","fuel":"cng"}
+       latency(ms): understanding=0.189 search=0.047 response=0.031 total=0.283
+[PASS] T05  "uska price kitna hai"
+       follow-up -> "The Mahindra Supro is priced at ₹3,81,079."
+[PASS] T06  "what's the km on that one"
+       follow-up -> "It has done 29,152 km."
+[PASS] T07  "what's the payload on that one"
+       follow-up -> "It can carry a payload of 882 kg, with a GVW of 1,666 kg."
+[PASS] T08  "budget 3.5 lakh, chhota truck, Nashik"
+       matched=1 state={"budget_max":350000,"body_type":"mini_truck","purpose":"last_mile","city":"Nashik","fuel":"cng"}
+       latency(ms): understanding=0.053 search=0.029 response=0.010 total=0.095
+[PASS] T09  "nahi diesel nahi, CNG chahiye"
+       matched=1 state={"budget_max":350000,"body_type":"mini_truck","purpose":"last_mile","city":"Nashik","fuel":"cng"}
+       latency(ms): understanding=0.150 search=0.032 response=0.010 total=0.196
+[PASS] T10  "not Mumbai, I meant Pune"
+       matched=2 state={"budget_max":350000,"body_type":"mini_truck","purpose":"last_mile","city":"Pune","fuel":"cng"}
+       latency(ms): understanding=0.067 search=0.023 response=0.010 total=0.102
+[PASS] T11  "long haul truck for construction material, 12 lakh budget"
+       matched=0 state={"budget_max":1200000,"body_type":"truck","purpose":"construction","city":"Pune","fuel":"cng"}
+       latency(ms): understanding=0.063 search=0.019 response=0.140 total=0.225
+[PASS] T12  "petrol pickup under 2 lakh in Chennai"
+       matched=0 state={"budget_max":200000,"body_type":"pickup","purpose":"construction","city":"Chennai","fuel":"petrol"}
+       latency(ms): understanding=0.070 search=0.012 response=0.034 total=0.121
+[PASS] T13  "electric mini truck in Bangalore, 4 lakh ke andar"
+       matched=0 state={"budget_max":400000,"body_type":"mini_truck","purpose":"construction","city":"Bangalore","fuel":"electric"}
+       latency(ms): understanding=0.051 search=0.012 response=0.040 total=0.107
+[PASS] T14  "truck for intercity transport under 10 lakh"
+       matched=0 state={"budget_max":1000000,"body_type":"truck","purpose":"intercity","city":"Bangalore","fuel":"electric"}
+       latency(ms): understanding=0.054 search=0.014 response=0.038 total=0.108
+[PASS] T15  "I need an SUV under 8 lakh"
+       matched=0 state={"budget_max":800000,"body_type":"truck","purpose":"intercity","city":"Bangalore","fuel":"electric"} outOfDomain=suv
+       latency(ms): understanding=0.089 search=0.001 response=0.004 total=0.097
+[PASS] T16  "show me a sedan in Mumbai"
+       matched=0 state={"budget_max":800000,"body_type":"truck","purpose":"intercity","city":"Mumbai","fuel":"electric"} outOfDomain=sedan
+       latency(ms): understanding=0.051 search=0.001 response=0.001 total=0.054
+------------------------------------------------------------------------------
+PASS RATE: 16/16 (100.0%)
+==============================================================================
+CONSTRAINT-VIOLATION CHECK: PASSED — zero violations across all filtered results

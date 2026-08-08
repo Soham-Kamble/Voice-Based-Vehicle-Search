@@ -1,0 +1,93 @@
+[
+  {
+    "id": "T01",
+    "utterance": "chhota truck chahiye, 5 lakh ke andar, city delivery ke liye",
+    "expected_slots": { "budget_max": 500000, "body_type": "mini_truck", "purpose": "city_delivery" }
+  },
+  {
+    "id": "T02",
+    "utterance": "I need a pickup truck under 6 lakh in Pune",
+    "expected_slots": { "budget_max": 600000, "body_type": "pickup", "city": "Pune" }
+  },
+  {
+    "id": "T03",
+    "utterance": "Show me diesel trucks in Delhi under 8 lakh",
+    "expected_slots": { "budget_max": 800000, "body_type": "truck", "fuel": "diesel", "city": "Delhi" }
+  },
+  {
+    "id": "T04",
+    "utterance": "CNG mini truck in Mumbai for last mile delivery",
+    "expected_slots": { "fuel": "cng", "body_type": "mini_truck", "city": "Mumbai", "purpose": "last_mile" },
+    "expect_real_matches": true
+  },
+  {
+    "id": "T05",
+    "utterance": "uska price kitna hai",
+    "expected_slots": {},
+    "is_followup": true,
+    "expect_grounded_answer": true
+  },
+  {
+    "id": "T06",
+    "utterance": "what's the km on that one",
+    "expected_slots": {},
+    "is_followup": true,
+    "expect_grounded_answer": true
+  },
+  {
+    "id": "T07",
+    "utterance": "what's the payload on that one",
+    "expected_slots": {},
+    "is_followup": true,
+    "expect_grounded_answer": true
+  },
+  {
+    "id": "T08",
+    "utterance": "budget 3.5 lakh, chhota truck, Nashik",
+    "expected_slots": { "budget_max": 350000, "body_type": "mini_truck", "city": "Nashik" }
+  },
+  {
+    "id": "T09",
+    "utterance": "nahi diesel nahi, CNG chahiye",
+    "expected_slots": { "fuel": "cng" },
+    "is_correction": true
+  },
+  {
+    "id": "T10",
+    "utterance": "not Mumbai, I meant Pune",
+    "expected_slots": { "city": "Pune" },
+    "is_correction": true
+  },
+  {
+    "id": "T11",
+    "utterance": "long haul truck for construction material, 12 lakh budget",
+    "expected_slots": { "budget_max": 1200000, "body_type": "truck", "purpose": "construction" }
+  },
+  {
+    "id": "T12",
+    "utterance": "petrol pickup under 2 lakh in Chennai",
+    "expected_slots": { "budget_max": 200000, "body_type": "pickup", "fuel": "petrol", "city": "Chennai" }
+  },
+  {
+    "id": "T13",
+    "utterance": "electric mini truck in Bangalore, 4 lakh ke andar",
+    "expected_slots": { "budget_max": 400000, "body_type": "mini_truck", "fuel": "electric", "city": "Bangalore" }
+  },
+  {
+    "id": "T14",
+    "utterance": "truck for intercity transport under 10 lakh",
+    "expected_slots": { "budget_max": 1000000, "body_type": "truck", "purpose": "intercity" }
+  },
+  {
+    "id": "T15",
+    "utterance": "I need an SUV under 8 lakh",
+    "expected_slots": { "budget_max": 800000 },
+    "expect_out_of_domain": "suv"
+  },
+  {
+    "id": "T16",
+    "utterance": "show me a sedan in Mumbai",
+    "expected_slots": { "city": "Mumbai" },
+    "expect_out_of_domain": "sedan"
+  }
+]

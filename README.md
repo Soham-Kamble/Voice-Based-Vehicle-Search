@@ -1,4 +1,4 @@
-# Vyngo Voice-Based Vehicle Search — Take-Home Submission
+# Voice-Based Vehicle Search — Take-Home Submission
 
 A voice-first assistant for finding used commercial vehicles. Buyer speaks a
 need in English/Hinglish → transcribe → extract slots → hard-filter a
